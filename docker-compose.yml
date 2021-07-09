@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  foods:
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile.jvm
+    restart: always
+    ports:
+      - 8080:8080
+    container_name: foods
+    depends_on:
+      - foods-db
+  foods-db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    container_name: foods-db
+    environment:
+      POSTGRES_DB: foods_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
